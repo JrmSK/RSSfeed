@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+
+<head>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous">
+    </script>
+</head>
+
+<body>
+    <div id="articles">
+        <button id="feedMe">Get feed from Engadget!</button>
+    </div>
+<script>
+
+$("#feedMe").click(function() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:7000/getFeed",
+    }).done(function (data) {
+        var article = document.createElement("li");
+        $("ul").empty().remove()
+        $("#articles").append($("<ul/>"));
+        var elements = JSON.parse(data);
+        elements.forEach(function (element) {
+            var element = element.title + " " + element.link;
+            $("#articles ul").append($("<li/>").html(element));
+        });
+    });
+});
+
+
+
+
+</script>
+</body>
+
+</html>
